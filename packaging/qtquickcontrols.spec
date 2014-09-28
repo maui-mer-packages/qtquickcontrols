@@ -1,11 +1,14 @@
-Name:       qt5-qtquickcontrols
+# Package prefix
+%define pkgname qt5-qtquickcontrols
+
+Name:       qtquickcontrols
 Summary:    QtQuick Controls
-Version:    5.1.0
-Release:    1%{?dist}
+Version:    5.3.2
+Release:    1
 Group:      Qt/Qt
 License:    LGPLv2.1 with exception or GPLv3
-URL:        http://qt.nokia.com
-Source0:    %{name}-%{version}.tar.bz2
+URL:        http://qt.io
+Source0:    %{name}-%{version}.tar.xz
 BuildRequires:  qt5-qtcore-devel
 BuildRequires:  qt5-qtgui-devel
 BuildRequires:  qt5-qtdeclarative-devel
@@ -16,15 +19,24 @@ BuildRequires:  qt5-qmake
 Qt is a cross-platform application and UI framework. Using Qt, you can
 write web-enabled applications once and deploy them across desktop,
 mobile and embedded systems without rewriting the source code.
-.
+
 This package contains the QtQuick Controls library.
 
 
+%package -n qt5-qtquickcontrols
+Summary:    QtQuick Controls
+Group:      Qt/Qt
 
-#### Build section
+%description -n qt5-qtquickcontrols
+Qt is a cross-platform application and UI framework. Using Qt, you can
+write web-enabled applications once and deploy them across desktop,
+mobile and embedded systems without rewriting the source code.
+
+This package contains the QtQuick Controls library.
+
 
 %prep
-%setup -q -n %{name}-%{version}/upstream
+%setup -q -n %{name}-%{version}
 
 %build
 export QTDIR=/usr/share/qt5
@@ -38,15 +50,12 @@ rm -rf %{buildroot}
 %qmake5_install
 
 
-#### Pre/Post section
-
-%post
+%post -n qt5-qtquickcontrols
 /sbin/ldconfig
-%postun
+%postun -n qt5-qtquickcontrols
 /sbin/ldconfig
 
-#### File section
 
-%files
+%files -n qt5-qtquickcontrols
 %defattr(-,root,root,-)
 %{_libdir}/qt5/qml/QtQuick/*
